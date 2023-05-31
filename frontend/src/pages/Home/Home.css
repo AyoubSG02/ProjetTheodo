@@ -2,40 +2,82 @@
   text-align: center;
 }
 
-.movie-container{
+.movie-container {
+  position: relative;
   width: 300px;
+  background-color: #ffffff2c;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
 }
 
 .container {
   display: flex;
-  flex-wrap : wrap;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.movie-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .image-item {
-  width: 200px;
+  width: 100%;
   height: auto;
-  /* Ajoutez d'autres styles CSS selon vos besoins */
+  border-radius: 10px 10px 0 0;
+  transition: filter 0.3s ease;
 }
 
-.App-logo {
-  height: 30vmin;
-  pointer-events: none;
+.movie-details {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  opacity: 0;
+  transform: translateY(100%);
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.movie-container:hover .image-item {
+  filter: brightness(70%);
+}
+
+.movie-container:hover .movie-details {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.movie-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.movie-date {
+  font-size: 14px;
 }
 
 .App-header {
   background-color: #282c34;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start; /* Updated alignment to flex-start */
   justify-content: center;
-  font-size: calc(1px + 2vmin);
-  color: white;
+  font-size: calc(10px + 2vmin);
+  color: rgba(255, 255, 255, 0.6);
+  padding: 20px; /* Added padding to create space around the logo */
+}
+
+.App-logo {
+  height: 30vmin;
+  pointer-events: none;
+  align-self: flex-start; /* Added alignment to flex-start */
+  margin-bottom: 20px; /* Added margin to create space below the logo */
 }
 
 .App-link {
@@ -49,4 +91,4 @@
   to {
     transform: rotate(360deg);
   }
-  }
+}

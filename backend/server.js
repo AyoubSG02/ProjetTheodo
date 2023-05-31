@@ -14,7 +14,6 @@ appDataSource
   .then(() => {
     console.log('Data Source has been initialized!');
     const app = express();
-
     app.use(bodyParser.json());
     app.use(logger('dev'));
     app.use(cors());
@@ -24,7 +23,7 @@ appDataSource
     // Register routes
     app.use('/', indexRouter);
     app.use('/users', usersRouter);
-    app.use("/movies", moviesRouter);
+    app.use('/movies', moviesRouter);
 
     // Register 404 middleware and error handler
     app.use(routeNotFoundJsonHandler); // this middleware must be registered after all routes to handle 404 correctly
@@ -35,6 +34,9 @@ appDataSource
     app.listen(port, () => {
       console.log(`Server listening at http://localhost:${port}`);
     });
+    //app.listen(8000, () => {
+    //console.log('Le serveur est en cours d\'exécution sur le port 8000');
+    //});
   })
   .catch((err) => {
     console.error('Error during Data Source initialization:', err);

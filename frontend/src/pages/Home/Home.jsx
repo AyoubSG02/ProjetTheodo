@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import logo from './spoderman.png';
-import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import logo from './images.png';
 import './Home.css';
 
 function useFetchMovies(url) {
@@ -11,14 +10,18 @@ function useFetchMovies(url) {
       method: 'GET',
       headers: {
         accept: 'application/json',
-        Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxZjlmNjAwMzY4MzMzODNkNGIwYjNhNzJiODA3MzdjNCIsInN1YiI6IjY0NzA5YmE4YzVhZGE1MDBkZWU2ZTMxMiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.Em7Y9fSW94J91rbuKFjDWxmpWaQzTitxRKNdQ5Lh2Eo'
-      }
+        Authorization:
+          'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwYjNlNzg0ODkzMDUxMjRjYmQ3YjNiMmViZjMyZjNjNCIsInN1YiI6IjY0NzBhYjRhNzcwNzAwMDExOTI0OGZlYSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.-XX-u9jsBzlN_VSkOYDNyk11_AGkIqX1b3H1XK0_1YE',
+      },
     };
 
-    fetch(url, options)
-      .then(response => response.json())
-      .then(response => setMovies(response.results))
-      .catch(err => console.error(err));
+    fetch(
+      'https://api.themoviedb.org/3/trending/movie/day?language=en-US',
+      options
+    )
+      .then((response) => response.json())
+      .then((response) => setMovies(response.results))
+      .catch((err) => console.error(err));
   }, [url]);
 
   return movies;
@@ -27,7 +30,9 @@ function useFetchMovies(url) {
 function Home() {
   const [movieName, setMovieName] = useState('');
   const [showMovieName, setShowMovieName] = useState(false);
-  const movies = useFetchMovies('https://api.themoviedb.org/3/movie/popular?language=en-US&page=1');
+  const movies = useFetchMovies(
+    'https://api.themoviedb.org/3/movie/popular?language=en-US&page=1'
+  );
 
   const handleInputChange = (event) => {
     setMovieName(event.target.value);
@@ -44,9 +49,17 @@ function Home() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>SpodermanMovies</h1>
+        <h1>Movies-4-U</h1>
         <img src={logo} className="App-logo" alt="logo" />
-        <h1></h1>
+
+        <a
+          className="App-link"
+          href="https://react.dev"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
         <div>
           <label htmlFor="movieName">Nom du film:</label>
           <input
@@ -57,22 +70,34 @@ function Home() {
             onChange={handleInputChange}
             onKeyDown={handleKeyDown}
           />
-          {showMovieName && movieName && <p>Le nom du film est : {movieName}</p>}
+          {showMovieName && movieName && (
+            <p>Le nom du film est : {movieName}</p>
+          )}
         </div>
         <div>
-        <h2>Top 20 du moment</h2>
+          <h2>Top 20 du moment</h2>
           <ul className="container">
-            {movies.map(movie => (
+            {movies.map((movie) => (
               <div className="movie-container" key={movie.id}>
-              <img src={"https://www.themoviedb.org/t/p/w600_and_h900_bestv2" + movie.poster_path} className='image-item' />
-              <div> {movie.title} <br></br> sorti le {movie.release_date} </div>
+                <img
+                  src={
+                    'https://www.themoviedb.org/t/p/w600_and_h900_bestv2' +
+                    movie.poster_path
+                  }
+                  alt={movie.title}
+                  className="image-item"
+                />
+                <div className="movie-details">
+                  <h3 className="movie-title">{movie.title}</h3>
+                  <p className="movie-date">Sorti le {movie.release_date}</p>
+                </div>
               </div>
             ))}
           </ul>
         </div>
-
       </header>
     </div>
   );
 }
+
 export default Home;
