@@ -27,16 +27,14 @@ router.post('/new', async (req, res) => {
 
   res.send('Film ajouté avec succès !');
 });
+
 router.delete('/:id', async (req, res) => {
   const { id } = req.params;
-
   try {
-    await Movie.delete(id);
+    await movieRepository.delete(id);
     res.send('Film supprimé avec succès !');
   } catch (error) {
-    res
-      .status(500)
-      .send('Une erreur s est produite lors de la suppression du film');
+    res.status(500).send('Une erreur s est produite lors de la suppression du film');
   }
 });
 
