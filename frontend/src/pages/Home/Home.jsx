@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import logo from './images.png';
 import './Home.css';
+import { Link } from 'react-router-dom';
+
 
 function useFetchMovies(url) {
   const [movies, setMovies] = useState([]);
@@ -26,6 +28,7 @@ function useFetchMovies(url) {
 
   return movies;
 }
+
 
 function Home() {
   const [movieName, setMovieName] = useState('');
@@ -78,20 +81,22 @@ function Home() {
           <h2>Top 20 du moment</h2>
           <ul className="container">
             {movies.map((movie) => (
-              <div className="movie-container" key={movie.id}>
-                <img
-                  src={
-                    'https://www.themoviedb.org/t/p/w600_and_h900_bestv2' +
-                    movie.poster_path
-                  }
-                  alt={movie.title}
-                  className="image-item"
-                />
-                <div className="movie-details">
-                  <h3 className="movie-title">{movie.title}</h3>
-                  <p className="movie-date">Sorti le {movie.release_date}</p>
+              <Link to={`/movies/${movie.id}`} key={movie.id}>
+                <div className="movie-container">
+                  <img
+                    src={
+                      'https://www.themoviedb.org/t/p/w600_and_h900_bestv2' +
+                      movie.poster_path
+                    }
+                    alt={movie.title}
+                    className="image-item"
+                  />
+                  <div className="movie-details">
+                    <h3 className="movie-title">{movie.title}</h3>
+                    <p className="movie-date">Sorti le {movie.release_date}</p>
+                  </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </ul>
         </div>
