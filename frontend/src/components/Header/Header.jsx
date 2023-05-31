@@ -3,20 +3,6 @@ import { useState } from 'react';
 import './Header.css';
 
 const Header = () => {
-  const [searchTerm, setSearchTerm] = useState('');
-
-  const handleInputChange = (event) => {
-    setSearchTerm(event.target.value);
-  };
-
-  const handleKeyDown = (event) => {
-    if (event.key === 'Enter') {
-      event.preventDefault();
-      // Add your logic here to handle the search based on the `searchTerm`
-      console.log('Search term:', searchTerm);
-    }
-  };
-
   return (
     <div className="header">
       <div className="headerLeft">

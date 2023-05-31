@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
-import "./MovieList.css"
+import "./movieList.css"
 import { useParams } from "react-router-dom"
-import Cards from "../Card/Card"
+import Cards from "../card/card"
 
 const MovieList = () => {
 
