@@ -50,10 +50,12 @@ function GenreList() {
                 .catch((err) => console.error(err));
         }
     };
+    /*const genre = Genre.find((genre) => genre.id === parseInt(GenreId));
+    const genreName = genre ? genre.name : "";*/
 
     return (
         <div className="genre__list">
-            <h2 className="genre__title">  </h2>
+            <h2 className="genre__title"></h2>
             <div className="genre__cards">
                 {
                     movieGenre.map(movie => (
