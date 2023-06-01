@@ -8,8 +8,16 @@ import { faHeart } from "@fortawesome/free-solid-svg-icons";
 
 
 const Movie = () => {
-  const [currentMovieDetail, setMovie] = useState(null);
-  const { id } = useParams();
+  const [currentMovieDetail, setMovie] = useState()
+  const { id } = useParams()
+  const options = {
+    method: 'GET',
+    headers: {
+      accept: 'application/json',
+      Authorization:
+        'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwYjNlNzg0ODkzMDUxMjRjYmQ3YjNiMmViZjMyZjNjNCIsInN1YiI6IjY0NzBhYjRhNzcwNzAwMDExOTI0OGZlYSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.-XX-u9jsBzlN_VSkOYDNyk11_AGkIqX1b3H1XK0_1YE',
+    },
+  };
 
   useEffect(() => {
     getData();
@@ -17,21 +25,18 @@ const Movie = () => {
   }, []);
 
   const getData = () => {
-    fetch(
-      `https://api.themoviedb.org/3/movie/${id}?api_key=4e44d9029b1270a757cddc766a1bcb63&language=en-US`
-    )
-      .then((res) => res.json())
-      .then((data) => setMovie(data));
-  };
+    fetch(`https://api.themoviedb.org/3/movie/${id}?language=en-US`, options)
+      .then(res => res.json())
+      .then(data => setMovie(data))
+  }
 
   return (
     <div className="movie">
       <div className="movie__intro">
         <img
           className="movie__backdrop"
-          src={`https://image.tmdb.org/t/p/original${
-            currentMovieDetail ? currentMovieDetail.backdrop_path : ""
-          }`}
+          src={`https://image.tmdb.org/t/p/original${currentMovieDetail ? currentMovieDetail.backdrop_path : ""
+            }`}
           alt="Backdrop"
         />
       </div>
@@ -40,9 +45,8 @@ const Movie = () => {
           <div className="movie__posterBox">
             <img
               className="movie__poster"
-              src={`https://image.tmdb.org/t/p/original${
-                currentMovieDetail ? currentMovieDetail.poster_path : ""
-              }`}
+              src={`https://image.tmdb.org/t/p/original${currentMovieDetail ? currentMovieDetail.poster_path : ""
+                }`}
               alt="Poster"
             />
             <LikeButton />
@@ -76,10 +80,10 @@ const Movie = () => {
             <div className="movie__genres">
               {currentMovieDetail && currentMovieDetail.genres
                 ? currentMovieDetail.genres.map((genre) => (
-                    <span className="movie__genre" key={genre.id}>
-                        {genre.name}
-                    </span>
-                  ))
+                  <span className="movie__genre" key={genre.id}>
+                    {genre.name}
+                  </span>
+                ))
                 : ""}
             </div>
           </div>
