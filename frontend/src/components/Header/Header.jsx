@@ -30,6 +30,12 @@ const Header = () => {
         <Link to="/movies/upcoming" style={{ textDecoration: 'none' }}>
           <span>Upcoming</span>
         </Link>
+        <Link to="/genre" style={{ textDecoration: 'none' }}>
+          <span>Genre</span>
+        </Link>
+        <Link to="/movies/recommended" style={{ textDecoration: 'none' }}>
+          <span>Recommended</span>
+        </Link>
         <Link to="/users" style={{ textDecoration: 'none' }}>
           <span>Sign in</span>
         </Link>
@@ -45,7 +51,6 @@ const Header = () => {
             value={searchValue}
             onChange={handleSearchChange}
           />
-          <button type="submit">Search</button>
         </form>
       </div>
     </div>

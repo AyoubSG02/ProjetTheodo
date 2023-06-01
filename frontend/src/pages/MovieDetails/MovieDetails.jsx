@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react"
 import "./Movie.css"
 import { useParams } from "react-router-dom"
+import LikeButton from "./LikeButton";
 
 const Movie = () => {
     const [currentMovieDetail, setMovie] = useState()
@@ -41,7 +42,7 @@ const Movie = () => {
                         <div className="movie__name">{currentMovieDetail ? currentMovieDetail.original_title : ""}</div>
                         <div className="movie__tagline">{currentMovieDetail ? currentMovieDetail.tagline : ""}</div>
                         <div className="movie__rating">
-                            {currentMovieDetail ? currentMovieDetail.vote_average : ""} <i class="fas fa-star" />
+                            {currentMovieDetail ? currentMovieDetail.vote_average : ""} <LikeButton movieId={id} />
                             <span className="movie__voteCount">{currentMovieDetail ? "(" + currentMovieDetail.vote_count + ") votes" : ""}</span>
                         </div>
                         <div className="movie__runtime">{currentMovieDetail ? currentMovieDetail.runtime + " mins" : ""}</div>

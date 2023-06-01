@@ -7,6 +7,7 @@ const MovieList = () => {
 
     const [movieList, setMovieList] = useState([])
     const { type } = useParams()
+    const i = 1
     const options = {
         method: 'GET',
         headers: {
@@ -25,11 +26,24 @@ const MovieList = () => {
     }, [type])
 
     const getData = () => {
-        fetch(`https://api.themoviedb.org/3/movie/${type ? type : "popular"}?language=en-US`, options)
-            .then(response => response.json())
-            .then(response => setMovieList(response.results))
-            .catch((err) => console.error(err));
-    }
+  const fetchedMovieList = [];
+  for (let i = 1; i <= 5; i++) {
+    fetch(
+      `https://api.themoviedb.org/3/movie/${
+        type ? type : "popular"
+      }?language=en-US&page=${i}`,
+      options
+    )
+      .then((response) => response.json())
+      .then((response) => {
+        fetchedMovieList.push(...response.results);
+        if (i === 5) {
+          setMovieList(fetchedMovieList);
+        }
+      })
+      .catch((err) => console.error(err));
+  }
+};
 
     return (
         <div className="movie__list">

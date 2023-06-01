@@ -1,0 +1,15 @@
+.like-button .fa-heart {
+    display: inline-block;
+    font-size: 24px;
+    color: #ccc;
+    cursor: pointer;
+    transition: color 0.3s;
+  }
+  
+  .like-button:hover .fa-heart {
+    color: red;
+  }
+  
+  .like-button.liked .fa-heart {
+    color: red;
+  }
