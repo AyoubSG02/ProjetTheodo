@@ -34,7 +34,9 @@ router.delete('/:id', async (req, res) => {
     await movieRepository.delete(id);
     res.send('Film supprimé avec succès !');
   } catch (error) {
-    res.status(500).send('Une erreur s est produite lors de la suppression du film');
+    res
+      .status(500)
+      .send('Une erreur s est produite lors de la suppression du film');
   }
 });
 

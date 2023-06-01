@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import "./Header.css";
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import './Header.css';
 
 const Header = () => {
-  const [searchValue, setSearchValue] = useState("");
+  const [searchValue, setSearchValue] = useState('');
   const navigate = useNavigate();
 
   const handleSearchChange = (event) => {
@@ -21,19 +21,19 @@ const Header = () => {
         <Link to="/">
           <img className="header__icon" src="./csshows.png" alt="Logo" />
         </Link>
-        <Link to="/movies/popular" style={{ textDecoration: "none" }}>
+        <Link to="/movies/popular" style={{ textDecoration: 'none' }}>
           <span>Popular</span>
         </Link>
-        <Link to="/movies/top_rated" style={{ textDecoration: "none" }}>
+        <Link to="/movies/top_rated" style={{ textDecoration: 'none' }}>
           <span>Top Rated</span>
         </Link>
-        <Link to="/movies/upcoming" style={{ textDecoration: "none" }}>
+        <Link to="/movies/upcoming" style={{ textDecoration: 'none' }}>
           <span>Upcoming</span>
         </Link>
-        <Link to="/users" style={{ textDecoration: "none" }}>
+        <Link to="/users" style={{ textDecoration: 'none' }}>
           <span>Sign in</span>
         </Link>
-        <Link to="/about" style={{ textDecoration: "none" }}>
+        <Link to="/about" style={{ textDecoration: 'none' }}>
           <span>About</span>
         </Link>
       </div>
