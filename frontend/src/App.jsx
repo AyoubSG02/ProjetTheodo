@@ -7,6 +7,8 @@ import Movie from './pages/MovieDetails/MovieDetails';
 import About from './pages/About/About';
 import Users from './pages/Users/Users';
 import SearchResults from './components/SearchResults/SearchResults';
+import GenreList from './pages/Genre/Genre';
+
 
 
 function App() {
@@ -17,6 +19,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/users" element={<Users />} />
         <Route path="/about" element={<About />} />
+        <Route path="/genre/:GenreId" element={<GenreList />} />
         <Route path="/movie/:id" element={<Movie />} />
         <Route path="/movies/:type" element={<MovieList />} />
 

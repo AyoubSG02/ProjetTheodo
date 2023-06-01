@@ -28,6 +28,19 @@ router.post('/new', async (req, res) => {
   res.send('Film ajouté avec succès !');
 });
 
+router.post('/movies/like/:id', async (req, res) => {
+  // Récupérer les données du corps de la requête
+  const { title, releaseDate } = req.body;
+
+  // Créer une instance de l'entité Movie
+  const movie = movieRepository.create({ title, releaseDate });
+
+  // Sauvegarder le film dans la base de données
+  await movieRepository.insert(movie);
+
+  res.send('Film ajouté avec succès !');
+});
+
 router.delete('/:id', async (req, res) => {
   const { id } = req.params;
   try {

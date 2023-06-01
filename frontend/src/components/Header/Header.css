@@ -51,7 +51,6 @@ a > span:hover {
 .headerRight input[type="text"]:focus {
   box-shadow: 0 0 3px #aaa;
   background-color: #fff;
-  color: #000;
 }
 
 .dropdown {

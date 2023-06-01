@@ -13,6 +13,7 @@ const Movie = new typeorm.EntitySchema({
       unique: true,
     },
     releaseDate: { type: Date },
+    liked: { type: Boolean, default: false },
   },
 });
 
