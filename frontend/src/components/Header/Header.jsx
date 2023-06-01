@@ -26,28 +26,12 @@ const Header = () => {
         <Link to="/">
           <img className="header__icon" src="../csshows.png" alt="Logo" />
         </Link>
-        <div className="dropdown">
-          <span className={`dropdown__trigger ${isPopularOpen ? 'active' : ''}`} onClick={handlePopularClick}>
-            Popular {isPopularOpen && <i className="fas fa-chevron-down"></i>}
-          </span>
-          {isPopularOpen && (
-            <div className="dropdown__content">
-              <Link to="/movies/popular" style={{ textDecoration: 'none' }}>
-                <span>Popular 1</span>
-              </Link>
-              <Link to="/movies/popular" style={{ textDecoration: 'none' }}>
-                <span>Popular 2</span>
-              </Link>
-              <Link to="/movies/popular" style={{ textDecoration: 'none' }}>
-                <span>Popular 3</span>
-              </Link>
-            </div>
-          )}
-        </div>
-        <Link to="/movies/top-rated" style={{ textDecoration: 'none' }}>
+        <Link to="/movies/popular" style={{ textDecoration: 'none' }}>
+          <span>Popular</span>
+        </Link>
+        <Link to="/movies/top_rated" style={{ textDecoration: 'none' }}>
           <span>Top Rated</span>
         </Link>
-
         <Link to="/movies/upcoming" style={{ textDecoration: 'none' }}>
           <span>Upcoming</span>
         </Link>
@@ -130,5 +114,3 @@ const Header = () => {
 };
 
 export default Header;
-
-
