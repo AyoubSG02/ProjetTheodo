@@ -19,7 +19,7 @@ const Header = () => {
     <div className="header">
       <div className="headerLeft">
         <Link to="/">
-          <img className="header__icon" src="./csshows.png" alt="Logo" />
+          <img className="header__icon" src="../csshows.png" alt="Logo" />
         </Link>
         <Link to="/movies/popular" style={{ textDecoration: 'none' }}>
           <span>Popular</span>

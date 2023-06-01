@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
+import Cards from "../Card/Card"
 
 const SearchResults = () => {
   const location = useLocation();
@@ -35,13 +36,17 @@ const SearchResults = () => {
   }, [searchQuery]);
 
   return (
-    <div>
-      <h2>Search Results for "{searchQuery}"</h2>
-      {searchResults.map((result) => (
-        <div key={result.id}>{result.title}</div>
-      ))}
+    <div className="movie__list">
+        <h2>Search Results for : "{searchQuery}"</h2>
+        <div className="list__cards">
+            {
+                searchResults.map(movie => (
+                    <Cards movie={movie} />
+                ))
+            }
+        </div>
     </div>
-  );
+)
 };
 
 export default SearchResults;
