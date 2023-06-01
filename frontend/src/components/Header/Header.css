@@ -20,12 +20,14 @@ a > span {
 }
 
 a > span:hover {
-  color: red;
+  color: #e70a0a;
 }
 
 .header__icon {
   width: 100px;
+  height: 50px;
   cursor: pointer;
+  margin-right: 40px;
 }
 
 .user__avatar {
@@ -49,4 +51,58 @@ a > span:hover {
 .headerRight input[type="text"]:focus {
   box-shadow: 0 0 3px #aaa;
   background-color: #fff;
+  color: #000;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown__trigger {
+  font-size: 1.4rem;
+  cursor: pointer;
+  color: #fff;
+  position: relative;
+}
+
+.dropdown__trigger i {
+  display: none;
+}
+
+.dropdown__trigger:hover i {
+  display: inline-block;
+}
+
+.dropdown__trigger.active {
+  color: #e50914;
+}
+
+.dropdown__content {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  display: none;
+  background-color: #333;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  min-width: 200px;
+  z-index: 1;
+  border-radius: 5px;
+}
+
+.dropdown__content a {
+  color: #fff;
+  padding: 15px 20px;
+  text-decoration: none;
+  display: block;
+  transition: background-color 0.3s ease;
+}
+
+.dropdown__content a:hover {
+  background-color: #020000;
+  color: #fff;
+}
+
+.dropdown:hover .dropdown__content {
+  display: block;
 }

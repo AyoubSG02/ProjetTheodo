@@ -8,6 +8,7 @@ import About from './pages/About/About';
 import Users from './pages/Users/Users';
 import SearchResults from './components/SearchResults/SearchResults';
 
+
 function App() {
   return (
     <div className="App">
@@ -18,6 +19,7 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/movie/:id" element={<Movie />} />
         <Route path="/movies/:type" element={<MovieList />} />
+
         <Route path="/search" element={<SearchResults />} />
         <Route path="/*" element={<h1>Error Page</h1>} />
       </Routes>
