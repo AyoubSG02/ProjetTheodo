@@ -1,16 +1,33 @@
-.Header-container {
+.header {
+  margin: 0 2.5rem;
+  padding: .5rem 0;
+  align-items: center;
   display: flex;
-  flex-direction: row;
-  justify-content: center;
-  padding: 5px;
-  font-size: calc(10px + 2vmin);
+  justify-content:space-between;
 }
 
-.Header-container > :not(:last-child) {
-  margin-right: 10px;
+.headerLeft, .headerRight {
+  display: flex;
+  align-items: center;
+
 }
 
-.Link {
-  font-weight: 700;
+a > span{
+  margin: 0 30px;
+  font-size: 1.3rem;
+  cursor: pointer;
   color: white;
+}
+
+a > span:hover {
+  color: red;
+}
+
+.header__icon {
+  width: 80px;
+  cursor: pointer;
+}
+
+.user__avatar {
+  font-size: 2rem;
 }

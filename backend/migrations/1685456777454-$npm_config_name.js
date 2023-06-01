@@ -10,7 +10,7 @@ export default class  $npmConfigName1685456777454 {
             CREATE TABLE "movie" (
                 "id" integer PRIMARY KEY AUTOINCREMENT NOT NULL,
                 "title" varchar NOT NULL,
-                "genre" varchar NOT NULL
+                "releaseDate" DATE NOT NULL
             )
         `);
     }

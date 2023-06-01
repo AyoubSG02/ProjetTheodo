@@ -1,95 +1,90 @@
-// MovieDetails.jsx
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import './MovieDetails.css';
+import React, { useEffect, useState } from "react"
+import "./Movie.css"
+import { useParams } from "react-router-dom"
 
-function MovieDetails() {
-  const { movieId } = useParams();
-  const [movieDetails, setMovieDetails] = useState(null);
-  const token = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwYjNlNzg0ODkzMDUxMjRjYmQ3YjNiMmViZjMyZjNjNCIsInN1YiI6IjY0NzBhYjRhNzcwNzAwMDExOTI0OGZlYSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.-XX-u9jsBzlN_VSkOYDNyk11_AGkIqX1b3H1XK0_1YE';
+const Movie = () => {
+    const [currentMovieDetail, setMovie] = useState()
+    const { id } = useParams()
 
-  useEffect(() => {
-    const fetchMovieDetails = async () => {
-      try {
-        const response = await fetch(`https://api.themoviedb.org/3/movie/${movieId}?language=en-US`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json'
-          }
-        });
-        const data = await response.json();
-        setMovieDetails(data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
+    useEffect(() => {
+        getData()
+        window.scrollTo(0, 0)
+    }, [])
 
-    fetchMovieDetails();
-  }, [movieId, token]);
+    const getData = () => {
+        fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=4e44d9029b1270a757cddc766a1bcb63&language=en-US`)
+            .then(res => res.json())
+            .then(data => setMovie(data))
+    }
 
-  if (!movieDetails) {
-    return <div>Loading...</div>;
-  }
+    return (
+        <div className="movie">
+            <div className="movie__intro">
+                <img className="movie__backdrop" src={`https://image.tmdb.org/t/p/original${currentMovieDetail ? currentMovieDetail.backdrop_path : ""}`} />
+            </div>
+            <div className="movie__detail">
+                <div className="movie__detailLeft">
+                    <div className="movie__posterBox">
+                        <img className="movie__poster" src={`https://image.tmdb.org/t/p/original${currentMovieDetail ? currentMovieDetail.poster_path : ""}`} />
+                    </div>
+                </div>
+                <div className="movie__detailRight">
+                    <div className="movie__detailRightTop">
+                        <div className="movie__name">{currentMovieDetail ? currentMovieDetail.original_title : ""}</div>
+                        <div className="movie__tagline">{currentMovieDetail ? currentMovieDetail.tagline : ""}</div>
+                        <div className="movie__rating">
+                            {currentMovieDetail ? currentMovieDetail.vote_average : ""} <i class="fas fa-star" />
+                            <span className="movie__voteCount">{currentMovieDetail ? "(" + currentMovieDetail.vote_count + ") votes" : ""}</span>
+                        </div>
+                        <div className="movie__runtime">{currentMovieDetail ? currentMovieDetail.runtime + " mins" : ""}</div>
+                        <div className="movie__releaseDate">{currentMovieDetail ? "Release date: " + currentMovieDetail.release_date : ""}</div>
+                        <div className="movie__genres">
+                            {
+                                currentMovieDetail && currentMovieDetail.genres
+                                    ?
+                                    currentMovieDetail.genres.map(genre => (
+                                        <><span className="movie__genre" id={genre.id}>{genre.name}</span></>
+                                    ))
+                                    :
+                                    ""
+                            }
+                        </div>
+                    </div>
+                    <div className="movie__detailRightBottom">
+                        <div className="synopsisText">Synopsis</div>
+                        <div>{currentMovieDetail ? currentMovieDetail.overview : ""}</div>
+                    </div>
 
-  return (
-    <div className="movie-details-container">
-      <div className="movie-poster-container">
-        <img
-          src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${movieDetails.poster_path}`}
-          alt={movieDetails.title}
-          className="movie-poster"
-        />
-      </div>
-      <div className="movie-info-container">
-        <h2 className="movie-title">{movieDetails.title}</h2>
-        <p className="movie-description">{movieDetails.overview}</p>
-        <p className="movie-genres">
-          Genres: {movieDetails.genres.map(genre => (
-            <span
-              className={`movie-genre genre-${genre.name.toLowerCase()}`}
-              key={genre.id}
-            >
-              {genre.name}
-            </span>
-          ))}
-        </p>
-        <p className="movie-release-date">Release Date: {movieDetails.release_date}</p>
-        {/* Affichez d'autres informations importantes du film ici */}
-      </div>
-    </div>
-  );
+                </div>
+            </div>
+            <div className="movie__links">
+                <div className="movie__heading">Useful Links</div>
+                {
+                    currentMovieDetail && currentMovieDetail.homepage && <a href={currentMovieDetail.homepage} target="blank" style={{ textDecoration: "none" }}><p><span className="moviehomeButton movie_Button">Homepage <i className="newTab fas fa-external-link-alt"></i></span></p></a>
+                }
+                {
+                    currentMovieDetail && currentMovieDetail.imdb_id && <a href={"https://www.imdb.com/title/" + currentMovieDetail.imdb_id} target="blank" style={{ textDecoration: "none" }}><p><span className="movieimdbButton movie_Button">IMDb<i className="newTab fas fa-external-link-alt"></i></span></p></a>
+                }
+            </div>
+            <div className="movie__heading">Production companies</div>
+            <div className="movie__production">
+                {
+                    currentMovieDetail && currentMovieDetail.production_companies && currentMovieDetail.production_companies.map(company => (
+                        <>
+                            {
+                                company.logo_path
+                                &&
+                                <span className="productionCompanyImage">
+                                    <img className="movie__productionComapany" src={"https://image.tmdb.org/t/p/original" + company.logo_path} />
+                                    <span>{company.name}</span>
+                                </span>
+                            }
+                        </>
+                    ))
+                }
+            </div>
+        </div>
+    )
 }
 
-export default MovieDetails;
-
-  
-//   return (
-//     <div className="movie-details-container">
-//       <div className="movie-poster-container">
-//         <img
-//           src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${movieDetails.poster_path}`}
-//           alt={movieDetails.title}
-//           className="movie-poster"
-//         />
-//       </div>
-//       <div className="movie-info-container">
-//   <h2 className="movie-title">{movieDetails.title}</h2>
-//   <p className="movie-description">{movieDetails.overview}</p>
-//   <p className="movie-genres">
-//   Genres: {movieDetails.genres.map(genre => (
-//     <span
-//       className={`movie-genre genre-${genre.name.toLowerCase()}`}
-//       key={genre.id}
-//     >
-//       {genre.name}
-//     </span>
-//   ))}
-// </p>
-//   <p className="movie-release-date">Release Date: {movieDetails.release_date}</p>
-//   {/* Affichez d'autres informations importantes du film ici */}
-// </div>
-//     </div>
-//   );
-// }
-
-
+export default Movie
