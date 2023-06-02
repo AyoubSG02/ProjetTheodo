@@ -86,6 +86,18 @@ const Header = () => {
               <Link to="/genre/878" style={{ textDecoration: 'none' }}>
                 <span>Science Fiction</span>
               </Link>
+              <Link to="/genre/10770" style={{ textDecoration: 'none' }}>
+                <span>TV Movie</span>
+              </Link>
+              <Link to="/genre/53" style={{ textDecoration: 'none' }}>
+                <span>Thriller</span>
+              </Link>
+              <Link to="/genre/10752" style={{ textDecoration: 'none' }}>
+                <span>War</span>
+              </Link>
+              <Link to="/genre/37" style={{ textDecoration: 'none' }}>
+                <span>Western</span>
+              </Link>
             </div>
           )}
         </div>

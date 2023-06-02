@@ -57,6 +57,37 @@ router.get('/populate', async (req, res) => {
   }
 });
 
+router.get('/recommended', async (req, res) => {
+  try {
+    // Récupérer les films likés dans le movieRepository
+    const likedMovies = await movieRepository.find({ where: { liked: 1 } });
+
+    // Récupérer les genres des films likés
+    const likedGenres = likedMovies.flatMap(movie => movie.genre_ids);
+
+    // Rechercher les films avec des genres similaires aux films likés
+    const recommendedMovies = await movieRepository.createQueryBuilder('movie')
+      .where(qb => {
+        const subQuery = qb.subQuery()
+          .select('movie.id')
+          .from(Movie, 'movie')
+          .where('movie.liked = :liked', { liked: 0 })
+          .andWhere('movie.genre_ids && ARRAY[:likedGenres]', { likedGenres })
+          .getQuery();
+        return 'movie.id IN ' + subQuery;
+      })
+      .orderBy('ARRAY_LENGTH(movie.genre_ids || ARRAY[:likedGenres], 1)', 'DESC') // Trier par ordre décroissant du nombre d'intersections
+      .take(10) // Limiter le nombre de films recommandés à 10 (vous pouvez ajuster cette valeur selon vos besoins)
+      .getMany();
+
+    res.json(recommendedMovies);
+  } catch (error) {
+    console.error('Failed to fetch recommended movies:', error);
+    res.status(500).send('Failed to fetch recommended movies.');
+  }
+});
+
+
 router.post('/liked/:id', async (req, res) => {
   const { id } = req.params;
 
