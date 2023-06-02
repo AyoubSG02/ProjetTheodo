@@ -42,7 +42,7 @@ const Movie = new typeorm.EntitySchema({
     vote_count: {
       type: Number,
     },
-    liked: { type: Boolean, default: false },
+    liked: { type: Number, default: 0 },
   },
 });
 

@@ -6,7 +6,7 @@ import { appDataSource } from '../datasource.js';
 //const express = require('express');
 const router = express.Router();
 const movieRepository = appDataSource.getRepository(Movie);
-const options = {
+const APIoptions = {
   method: 'GET',
   headers: {
     accept: 'application/json',
@@ -35,7 +35,7 @@ router.get('/populate', async (req, res) => {
       movielist.push(
         axios.get(
           `https://api.themoviedb.org/3/movie/popular?language=en-US&page=${i}`,
-          options
+          APIoptions
         )
       );
     }
@@ -57,6 +57,38 @@ router.get('/populate', async (req, res) => {
   }
 });
 
+router.post('/liked/:id', async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const updateResult = await movieRepository.update(id, { liked: true });
+    if (updateResult.affected === 0) {
+      return res.status(404).send('Movie not found.');
+    }
+
+    res.send('Movie like status updated successfully!');
+  } catch (error) {
+    console.error('Error updating movie like status:', error);
+    res.status(500).send('Failed to update movie like status.');
+  }
+});
+
+router.post('/unliked/:id', async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const updateResult = await movieRepository.update(id, { liked: false });
+    if (updateResult.affected === 0) {
+      return res.status(404).send('Movie not found.');
+    }
+
+    res.send('Movie like status updated successfully!');
+  } catch (error) {
+    console.error('Error updating movie like status:', error);
+    res.status(500).send('Failed to update movie like status.');
+  }
+});
+
 // Définir la route POST /new
 router.post('/new', async (req, res) => {
   // Récupérer les données du corps de la requête
@@ -68,7 +100,6 @@ router.post('/new', async (req, res) => {
     genre_ids,
     backdrop_path,
     release_date,
-    liked,
     original_language,
     original_title,
     overview,
@@ -77,6 +108,9 @@ router.post('/new', async (req, res) => {
     vote_average,
     vote_count,
   } = req.body;
+
+  // Vérifier si le film est liké
+  const liked = req.body.liked ? 1 : 0;
 
   // Créer une instance de l'entité Movie
   const movie = movieRepository.create({

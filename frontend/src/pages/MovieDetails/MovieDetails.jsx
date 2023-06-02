@@ -21,10 +21,18 @@ const Movie = () => {
     }, [])
 
     const getData = () => {
-        fetch(`https://api.themoviedb.org/3/movie/${id}?language=en-US`,options)
+        fetch(`https://api.themoviedb.org/3/movie/${id}?language=en-US`, options)
             .then(res => res.json())
-            .then(data => setMovie(data))
-    }
+            .then(data => {
+                setMovie(data);
+
+                // Vérifier si le film est déjà liké en consultant le stockage local
+                const isMovieLiked = localStorage.getItem(`liked_${id}`);
+                if (isMovieLiked === "true") {
+                    data.liked = true;
+                }
+            });
+    };
 
     return (
         <div className="movie">
