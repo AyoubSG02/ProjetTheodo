@@ -3,7 +3,7 @@ import typeorm from 'typeorm';
 const Movie = new typeorm.EntitySchema({
   name: 'Movie',
   columns: {
-    idfilm: {
+    id: {
       primary: true,
       type: Number,
       generated: true,
@@ -15,10 +15,6 @@ const Movie = new typeorm.EntitySchema({
     genre_ids: {
       type: 'simple-array',
       nullable: true,
-    },
-    id: {
-      type: Number,
-      unique: true,
     },
     original_language: {
       type: String,

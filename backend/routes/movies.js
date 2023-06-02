@@ -42,15 +42,18 @@ router.get('/populate', async (req, res) => {
 
     const responses = await Promise.all(movielist);
     const moviesData = responses.flatMap((response) => response.data.results);
+    const filteredMoviesData = moviesData.filter(
+      (movieData) => movieData.backdrop_path // Filter out movies with missing backdrop_path
+    );
 
-    for (const movieData of moviesData) {
-      const movie = movieRepository.create(movieData);
-      await movieRepository.save(movie);
+    for (const movieData of filteredMoviesData) {
+      await movieRepository.save(movieData);
     }
 
     res.send('Movies populated successfully!');
   } catch (error) {
     res.status(500).send('Failed to populate movies.');
+    console.log(error);
   }
 });
 

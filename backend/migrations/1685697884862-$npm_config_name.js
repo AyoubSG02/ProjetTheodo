@@ -2,17 +2,16 @@ import typeorm from "typeorm";
 
 const { MigrationInterface, QueryRunner } = typeorm;
 
-export default class  $npmConfigName1685695340913 {
-    name = ' $npmConfigName1685695340913'
+export default class  $npmConfigName1685697884862 {
+    name = ' $npmConfigName1685697884862'
 
     async up(queryRunner) {
         await queryRunner.query(`
             CREATE TABLE "movie" (
-                "idfilm" integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+                "id" integer PRIMARY KEY AUTOINCREMENT NOT NULL,
                 "adult" boolean NOT NULL,
                 "backdrop_path" varchar NOT NULL,
                 "genre_ids" text,
-                "id" integer NOT NULL,
                 "original_language" varchar NOT NULL,
                 "original_title" varchar NOT NULL,
                 "overview" varchar NOT NULL,
@@ -23,8 +22,7 @@ export default class  $npmConfigName1685695340913 {
                 "video" boolean NOT NULL,
                 "vote_average" integer NOT NULL,
                 "vote_count" integer NOT NULL,
-                "liked" boolean NOT NULL DEFAULT (0),
-                CONSTRAINT "UQ_cb3bb4d61cf764dc035cbedd422" UNIQUE ("id")
+                "liked" boolean NOT NULL DEFAULT (0)
             )
         `);
         await queryRunner.query(`
