@@ -1,103 +1,55 @@
-import React, { useEffect, useState } from 'react';
-import logo from './images.png';
-import './Home.css';
+import React, { useEffect, useState } from "react"
+import "./home.css"
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { Carousel } from 'react-responsive-carousel';
+import { Link } from "react-router-dom";
+import MovieList from "../../components/MovieList/Movielist";
 
-function useFetchMovies(url) {
-  const [movies, setMovies] = useState([]);
+const Home = () => {
+
+  const [popularMovies, setPopularMovies] = useState([])
 
   useEffect(() => {
-    const options = {
-      method: 'GET',
-      headers: {
-        accept: 'application/json',
-        Authorization:
-          'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwYjNlNzg0ODkzMDUxMjRjYmQ3YjNiMmViZjMyZjNjNCIsInN1YiI6IjY0NzBhYjRhNzcwNzAwMDExOTI0OGZlYSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.-XX-u9jsBzlN_VSkOYDNyk11_AGkIqX1b3H1XK0_1YE',
-      },
-    };
-
-    fetch(
-      'https://api.themoviedb.org/3/trending/movie/day?language=en-US',
-      options
-    )
-      .then((response) => response.json())
-      .then((response) => setMovies(response.results))
-      .catch((err) => console.error(err));
-  }, [url]);
-
-  return movies;
-}
-
-function Home() {
-  const [movieName, setMovieName] = useState('');
-  const [showMovieName, setShowMovieName] = useState(false);
-  const movies = useFetchMovies(
-    'https://api.themoviedb.org/3/movie/popular?language=en-US&page=1'
-  );
-
-  const handleInputChange = (event) => {
-    setMovieName(event.target.value);
-    setShowMovieName(false);
-  };
-
-  const handleKeyDown = (event) => {
-    if (event.key === 'Enter') {
-      event.preventDefault();
-      setShowMovieName(true);
-    }
-  };
+    fetch("https://api.themoviedb.org/3/movie/popular?api_key=4e44d9029b1270a757cddc766a1bcb63&language=en-US")
+      .then(res => res.json())
+      .then(data => setPopularMovies(data.results))
+  }, [])
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1>Movies-4-U</h1>
-        <img src={logo} className="App-logo" alt="logo" />
-
-        <a
-          className="App-link"
-          href="https://react.dev"
-          target="_blank"
-          rel="noopener noreferrer"
+    <>
+      <div className="poster">
+        <Carousel
+          showThumbs={false}
+          autoPlay={true}
+          transitionTime={3}
+          infiniteLoop={true}
+          showStatus={false}
         >
-          Learn React
-        </a>
-        <div>
-          <label htmlFor="movieName">Nom du film:</label>
-          <input
-            type="text"
-            id="movieName"
-            placeholder="Enter movie name"
-            value={movieName}
-            onChange={handleInputChange}
-            onKeyDown={handleKeyDown}
-          />
-          {showMovieName && movieName && (
-            <p>Le nom du film est : {movieName}</p>
-          )}
-        </div>
-        <div>
-          <h2>Top 20 du moment</h2>
-          <ul className="container">
-            {movies.map((movie) => (
-              <div className="movie-container" key={movie.id}>
-                <img
-                  src={
-                    'https://www.themoviedb.org/t/p/w600_and_h900_bestv2' +
-                    movie.poster_path
-                  }
-                  alt={movie.title}
-                  className="image-item"
-                />
-                <div className="movie-details">
-                  <h3 className="movie-title">{movie.title}</h3>
-                  <p className="movie-date">Sorti le {movie.release_date}</p>
+          {
+            popularMovies.map(movie => (
+              <Link style={{ textDecoration: "none", color: "white" }} to={`/movie/${movie.id}`} >
+                <div className="posterImage">
+                  <img src={`https://image.tmdb.org/t/p/original${movie && movie.backdrop_path}`} />
                 </div>
-              </div>
-            ))}
-          </ul>
-        </div>
-      </header>
-    </div>
-  );
+                <div className="posterImage__overlay">
+                  <div className="posterImage__title">{movie ? movie.original_title : ""}</div>
+                  <div className="posterImage__runtime">
+                    {movie ? movie.release_date : ""}
+                    <span className="posterImage__rating">
+                      {movie ? movie.vote_average : ""}
+                      <i className="fas fa-star" />{" "}
+                    </span>
+                  </div>
+                  <div className="posterImage__description">{movie ? movie.overview : ""}</div>
+                </div>
+              </Link>
+            ))
+          }
+        </Carousel>
+        <MovieList />
+      </div>
+    </>
+  )
 }
 
-export default Home;
+export default Home

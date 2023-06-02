@@ -1,5 +1,5 @@
 import axios from 'axios';
-import './moviesTable.css';
+import './MoviesTable.css';
 
 function moviesTable({ movies, onSuccessfulmovieDeletion }) {
   const deletemovie = (movieId) => {

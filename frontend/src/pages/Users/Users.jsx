@@ -29,7 +29,7 @@ function Users() {
 
   return (
     <div className="Users-container">
-      <h1>This page displays the users</h1>
+      <h1>SIGN IN</h1>
       <AddUserForm onSuccessfulUserCreation={fetchUsers} />
       <UsersTable users={users} onSuccessfulUserDeletion={fetchUsers} />
       {usersLoadingError !== null && (
